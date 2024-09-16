@@ -1,0 +1,20 @@
+for using the code you have to done this, put this data.
+
+" { 
+  "_id": {"$oid": "65991b5c8827f7cddf1f3942"},
+  "fname": "anurag",
+  "lname": "yadav",
+  "email": "hello253118@gmail.com",
+  "password": 1234,
+  "gender": "male",
+  "hobby": [
+    "Workout"
+  ],
+  "city": "surat",
+  "message": "hi hello",
+  "adminImg": "/uploads/admin-1704532828671",
+  "__v": 0
+}  "
+
+put data into database first by using mangodb compass 
+and then you can login.`

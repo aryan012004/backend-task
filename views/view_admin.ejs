@@ -1,0 +1,150 @@
+<%- include('header') %>
+
+<div
+  class="table-responsive table-responsive-data2"
+  style="margin-top: 160px; padding: 0 10px"
+>
+  <form>
+    <input type="text" name="search" />
+    <input type="submit" value="search" />
+  </form>
+
+  <form action="/admin/deleteAll" method="post">
+  <table class="table table-data2">
+    <thead>
+      <tr>
+        <th>
+          <label class="au-checkbox">
+            <input type="checkbox" id="scb" />
+            <span class="au-checkmark">
+              <button
+              style="margin-left: 30px; margin-bottom: 20px;"
+              class="item"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Delete"
+            >
+             
+                <i class="zmdi zmdi-delete"></i>
+            
+            </button>
+            </span>
+          </label>
+        </th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Gender</th>
+        <th>Hobby</th>
+        <th>City</th>
+        <th>description</th>
+        <th>Images</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% var i=1; for(var v of stData){ %>
+      <tr class="tr-shadow">
+        <td>
+          <%= i %>
+          <label class="au-checkbox">
+            <input type="checkbox" class="cb" name="checkDelete" value="<%= v.id %>"/>
+            <span class="au-checkmark"></span>
+          </label>
+        </td>
+        <td><%= v.fname %> <%= v.lname %></td>
+        <td>
+          <span class="block-email"><%= v.email %></span>
+        </td>
+        <td class="desc"><%= v.gender %></td>
+        <td><%= v.hobby %></td>
+        <td>
+          <span class="status--process"><%= v.city %></span>
+        </td>
+        <td><%= v.message %></td>
+        <td>
+          <img src="<%= v.adminImg %>" height="50" />
+        </td>
+        <td>
+          <div class="table-data-feature">
+            <button
+              class="item"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Delete"
+            >
+              <a href="/admin/deleteRecord/<%= v.id %>">
+                <i class="zmdi zmdi-delete"></i>
+              </a>
+            </button>
+            <button
+              class="item"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Edit"
+            >
+              <a href="/admin/updateRecord/<%= v.id %>">
+                <!-- <i class="zmdi zmdi-delete"></i> -->
+                <i class="zmdi zmdi-edit"></i>
+              </a>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <% i++;} %>
+      <!-- <tr class="spacer"></tr> -->
+    </tbody>
+  </table>
+  </form>
+  <tr style="text-align: center; width: 100%;">
+    <% for(i=0; i<totalDocument; i++){ %>
+      <a href="?page=<%= i %>&search=<%=search%>"><%= i+1 %></a>
+    <% } %>
+  </tr>
+  <br>
+
+  <% var prevPage = parseInt(currentPage)-1 %>
+  <% if(prevPage>=0){%>
+  <tr style="text-align: center; width: 100%;">
+      <a href="?page=<%= prevPage %>"><<-prev</a>
+  </tr>
+  <% } %>
+
+  <tr style="text-align: center; width: 100%;">
+      <a href="?page=<%= parseInt(currentPage) %>"><%= parseInt(currentPage)+1 %></a>
+  </tr>
+
+  <% var nextPage = parseInt(currentPage)+1 %>
+  <% if(totalDocument>nextPage){%>
+  <tr style="text-align: center; width: 100%;">
+      <a href="?page=<%= nextPage %>">Next->></a>
+  </tr>
+  <% } %>
+
+</div>
+
+<%- include('footer') %>
+
+
+<script>
+  $(document).ready(function(){
+    $('#scb').on('click',function(){
+        if(this.checked){
+            $('.cb').each(function(){
+                this.checked = true;
+            });
+        }else{
+             $('.cb').each(function(){
+                this.checked = false;
+            });
+        }
+    });
+    
+    $('.cb').on('click',function(){
+        if($('.cb:checked').length == $('.cb').length){
+            $('#select_all').prop('checked',true);
+        }else{
+            $('#select_all').prop('checked',false);
+        }
+    });
+});
+
+</script>
